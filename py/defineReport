@@ -1,0 +1,34 @@
+def bestem_esg_rammeverk(bedrift_type, bransje, marked):
+    # Sjekker bedriftstypen for å bestemme hvilke rammebetingelser som kan være mest relevante
+    if bedrift_type == "små":
+        relevante_rammeverk = ["GRI", "UNGC", "B Impact Assessment"]
+    elif bedrift_type == "mellomstore":
+        relevante_rammeverk = ["GRI", "SASB", "TCFD"]
+    elif bedrift_type == "store":
+        relevante_rammeverk = ["GRI", "SASB", "TCFD", "CDP"]
+    else:
+        return "Ugyldig bedriftstype"
+
+    # Sjekker bransjen for å finne ut hvilke rammebetingelser som kan være mest relevante
+    if bransje == "energi":
+        relevante_rammeverk.append("CDSB")
+    elif bransje == "finans":
+        relevante_rammeverk.append("TCFD")
+
+    # Sjekker markedet for å finne ut hvilke rammebetingelser som kan være mest relevante
+    if marked == "USA":
+        relevante_rammeverk.append("SASB")
+    elif marked == "EU":
+        relevante_rammeverk.append("EU Non-Financial Reporting Directive")
+
+    # Velger det mest passende rammebetingelsen basert på de relevante rammeverkene
+    if "CDP" in relevante_rammeverk:
+        return "CDP"
+    elif "SASB" in relevante_rammeverk:
+        return "SASB"
+    elif "TCFD" in relevante_rammeverk:
+        return "TCFD"
+    elif "GRI" in relevante_rammeverk:
+        return "GRI"
+    else:
+        return "Ingen passende rammebetingelser funnet"
