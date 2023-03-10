@@ -1,0 +1,20 @@
+def identifiser_relevante_indikatorer(rapporteringsrammeverk, bransje, marked, tilgjengelig_data):
+    relevante_indikatorer = []
+    for indikator in rapporteringsrammeverk.indikatorer:
+        # sjekk om indikatoren er relevant for bedriftens bransje og marked
+        if indikator.relevant_for_bransje(bransje) and indikator.relevant_for_marked(markedssegment):
+            relevante_indikatorer.append(indikator)
+    
+    # sjekk hva slags data som allerede er tilgjengelig for hver relevant indikator
+    for indikator in relevante_indikatorer:
+        data = tilgjengelig_data.get(indikator.navn)
+        if data is not None:
+            # sjekk om datatypen er riktig
+            if not indikator.er_gyldig_datatype(data):
+                raise ValueError(f"Feil datatype for indikator {indikator.navn}")
+        else:
+            # manglende data, kanskje trenger bedriften å samle inn mer data
+            pass
+    
+    # returner de relevante indikatorene
+    return relevante_indikatorer
